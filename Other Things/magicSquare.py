@@ -1,49 +1,54 @@
-import random
+from random import choice
+from time import time
 board_side_length = 4
-target_sum = 34
+target_sum = board_side_length * (board_side_length**2 + 1) / 2
 
+checks = 0
 
-failed = False
+start_time = time()
 
-while True:
-    nums = [2,3,4,5,6,7,8,9,10,12,13,14,15,16]
-    board = [[1,0,0,0],[0,11,0,0],[0,0,0,0],[0,0,0,0]]
-    failed = False
-    failures = []
-    for row in range(len(board)):
-        for col in range(len(board)):
-            if board[row][col] == 0:
-                randnum = random.choice(nums)
-                board[row][col] = randnum
-                nums.remove(randnum)
-    #CHECK:
+def check_board(board, target_sum):
     #row check
     for row in board:
         if sum(row) != target_sum:
-            failed = True
-            failures.append("row check")
-            break
-    #column check
-    for i in range(4):
-        for j in range(4):
-            if sum([board[j][i]]) != target_sum:
-                failed = True
-                failures.append("col check")
-                break
-    # diagonal check
-    if sum([board[i][i] for i in range(4)]) != target_sum:
-        failed = True 
-        failures.append("diagonal 1")
-    if sum([board[3-i][i] for i in range(4)]) != target_sum:
-        failed = True 
-        failures.append("diagonal 2")
+            return False
     
+    #column check
+    for i in range(board_side_length):
+        if sum([board[j][i] for j in range(board_side_length)]) != target_sum:
+            return False
+    
+    # diagonal check
+    if ((sum([board[i][i] for i in range(board_side_length)]) != target_sum) or
+        sum([board[board_side_length-1-i][i] for i in range(board_side_length)]) != target_sum):
+        return False
+
+    return True  
+
+while True:
+    nums = list(range(1, board_side_length**2 + 1))
+    board = [[0 for _ in range(board_side_length)] for _ in range(board_side_length)]
+    
+    # fill in the board randomly
+    for row in range(len(board)):
+        for col in range(len(board)):
+            if board[row][col] == 0:
+                randnum = choice(nums)
+                board[row][col] = randnum
+                nums.remove(randnum)
+    
+    succeeded = check_board(board, target_sum)
  
-    if failed:
+    if succeeded:
+        print("We did it after " + str(checks) + " checks. Took " + str(time() - start_time) + " seconds")
         print(board)
-        print(failures)
         break
     else:
-        print("we done it")
-        print(board)
-        break
+        checks += 1
+        if checks % 100000 == 0:
+            print(f"Failed check {checks//100000} hundred thousand times")
+            print(board)
+
+
+# we done it after 631025066 checks, ~2 hours
+# [[4, 16, 1, 13], [9, 5, 12, 8], [14, 2, 15, 3], [7, 11, 6, 10]]
