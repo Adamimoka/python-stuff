@@ -1,0 +1,7 @@
+1 // 1 # this file can run in both python and js
+
+1 // (lambda:print("hi python") or 1)()
+
+1 // 1 ; """
+console.log("hey JS")
+1 // 1 """
