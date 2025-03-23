@@ -4,12 +4,10 @@ import random
 with open("word_list_file.txt") as f: # Fix file opening
   word_list = f.readlines
 pygame.init()
-prompt_list_0 = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','y','sh','ch','th','ph']
-prompt_list_1 = ['x','z','ab','ac','ad','ag','al','am','an','ap','ar','as','at','be','ca','ce','ci','da','de','ea','eb','ec','ed','ef','el','em','en','ep','er','es','et','fa','fe','ha','he','hi','il','in','ir','is','it','ka','ke','la','le','li','ma','na','ne','ni','no','od','or','pa','pe','ra','re','ri','ro','sa','se','si','st','su','ta','te','ur','us','ve']
-prompt_list_2 = ['bi','co','di','eg','ew','fi','if','ip','lo','lu','me','mi','mo','pi','so','ut','wa','we']
-prompt_list_3 = ['af','ah','av','aw','ba','bl','bo','do','eh','fo','hu','im','ki','oo','op','pu','ud','um','va','vi']
-prompt_list_4 = ['ait','ari','ate','att','tic','mem','boo','pos','ide','dra','cem','dem','ene','ean','bea','eas','ter','pet','ete','app','ght','oul']
-prompt_list_5 = ['ak','bu','cu','iv','ko','mm','oh','ai','hm','ht','ia','ih','ns','pl','rr','rw','ts','tw','wt']
+prompt_list_0 = ['t','a','o','i','n','s','h','r','d','l']
+prompt_list_1 = ['th', 'he', 'in', 'er', 'an', 're', 'nd', 'on', 'en', 'at']
+prompt_list_2 = ['k', 'j', 'x', 'q', 'z', 'it', 'is', 'hi', 'es', 'ng']
+prompt_list_3 = ['ing', 'ent', 'ion', 'ter', 'ich', 'tion', 'ould', 'ight', 'ough', 'ment']
 screen = pygame.display.set_mode((600,600))
 pygame.display.set_caption("Word Bomb")
 
@@ -38,26 +36,18 @@ def ChoosePrompt(gs):
   lastPrompt = prompt
   while prompt == lastPrompt:
     if gs > 50:
-      if random.randint(0,1):
-        prompt=random.choice(prompt_list_4)
-      else:
-        prompt=random.choice(prompt_list_5)
+      prompt=random.choice(prompt_list_3)
     elif gs > 30:
-      if random.randint(0,1):
-        prompt=random.choice(prompt_list_3)
-      else:
-        prompt=random.choice(prompt_list_4)
-    elif gs > 20:
       if random.randint(0,1):
         prompt=random.choice(prompt_list_2)
       else:
         prompt=random.choice(prompt_list_3)
-    elif gs > 10:
+    elif gs > 20:
       if random.randint(0,1):
         prompt=random.choice(prompt_list_1)
       else:
         prompt=random.choice(prompt_list_2)
-    elif gs > 5:
+    elif gs > 10:
       if random.randint(0,1):
         prompt=random.choice(prompt_list_0)
       else:
