@@ -6,4 +6,5 @@ def ordersOfMagnitude(text_input: str) -> int:
     return(int(num * magnitude))
 
 if __name__ == "__main__":
-    ordersOfMagnitude(input("Enter a number with a magnitude (ex. 3.2 thousand): "))
+    answer = ordersOfMagnitude(input("Enter a number with a magnitude (ex. 3.2 thousand): "))
+    print(answer)
